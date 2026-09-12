@@ -55,7 +55,11 @@ user_pref("network.proxy.socks", "127.0.0.1");
 user_pref("network.proxy.socks_port", 1080);
 user_pref("network.proxy.socks_version", 5);
 user_pref("network.proxy.socks_remote_dns", true);
-user_pref("network.proxy.share_proxy_settings", true);
+user_pref("network.proxy.share_proxy_settings", false);
+user_pref("network.proxy.http", "");
+user_pref("network.proxy.http_port", 0);
+user_pref("network.proxy.ssl", "");
+user_pref("network.proxy.ssl_port", 0);
 user_pref("network.proxy.no_proxies_on", "localhost, 127.0.0.1, fast.com, .fast.com, nflxvideo.net, .nflxvideo.net, netflix.com, .netflix.com, speedtest.net, .speedtest.net, ooklaserver.net");
 user_pref("dom.security.https_only_mode", true);
 user_pref("network.http.max-persistent-connections-per-server", 16);
@@ -97,6 +101,8 @@ pub async fn launch_browser(kind: BrowserKind, urls: &[String]) -> Result<()> {
                 .arg(&profile)
                 .arg("--no-remote")
                 .args(&target_urls)
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null())
                 .spawn()
                 .with_context(|| format!("failed to launch {bin}"))?;
 
@@ -112,6 +118,8 @@ pub async fn launch_browser(kind: BrowserKind, urls: &[String]) -> Result<()> {
             let mut child = Command::new(&bin)
                 .arg(proxy_flag)
                 .args(&target_urls)
+                .stdout(std::process::Stdio::null())
+                .stderr(std::process::Stdio::null())
                 .spawn()
                 .with_context(|| format!("failed to launch {bin}"))?;
 
