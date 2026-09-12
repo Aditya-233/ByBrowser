@@ -1,0 +1,24 @@
+[package]
+name = "bybrowser"
+version = "1.0.0"
+edition = "2024"
+license = "MIT OR Apache-2.0"
+description = "High-performance, isolated DPI-bypassing browser launcher for Linux"
+repository = "https://github.com/Aditya-233/ByBrowser"
+homepage = "https://github.com/Aditya-233/ByBrowser"
+readme = "README.md"
+authors = ["Aditya <https://github.com/Aditya-233>"]
+keywords = ["browser", "dpi-bypass", "censorship-circumvention", "firefox", "socks5"]
+categories = ["command-line-utilities", "network-programming"]
+
+[dependencies]
+anyhow = "1.0.104"
+libc = "0.2.189"
+tokio = { version = "1.53.1", features = ["macros", "rt-multi-thread", "time", "net", "io-util", "process"] }
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
