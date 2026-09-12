@@ -158,7 +158,7 @@ pub async fn launch_browser(kind: BrowserKind, urls: &[String]) -> Result<()> {
             println!("\x1b[96m    Target:  {}\x1b[0m\n", target_urls.join(" "));
 
             let mut child = Command::new(&bin)
-                .arg(&proxy_flag)
+                .arg(proxy_flag)
                 .arg(&user_data_flag)
                 .arg("--incognito")
                 .arg("--no-first-run")
